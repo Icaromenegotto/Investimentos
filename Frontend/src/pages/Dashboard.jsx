@@ -3,7 +3,7 @@ import { api } from "../services/api";
 import Layout from "../components/Layout";
 
 import {
-  LineChart,
+  ComposedChart,
   Line,
   XAxis,
   YAxis,
@@ -174,7 +174,7 @@ export default function Dashboard() {
             <div style={card}>
               <h3>Evolução da Carteira</h3>
 
-              <LineChart width={450} height={260} data={evolucaoFormatada}>
+              <ComposedChart width={450} height={260} data={evolucaoFormatada}>
                 <XAxis dataKey="mes" />
                 <YAxis />
                 <Tooltip />
@@ -186,14 +186,14 @@ export default function Dashboard() {
                   stroke="#2563eb"
                   strokeWidth={2}
                 />
-              </LineChart>
+              </ComposedChart>
             </div>
 
             {/* APORTES */}
             <div style={card}>
               <h3>Evolução de Aportes</h3>
 
-              <LineChart width={450} height={260} data={aportes}>
+              <ComposedChart width={450} height={260} data={aportes}>
                 <XAxis dataKey="mes" />
                 <YAxis />
                 <Tooltip />
@@ -205,14 +205,14 @@ export default function Dashboard() {
                   stroke="#16a34a"
                   strokeWidth={2}
                 />
-              </LineChart>
+              </ComposedChart>
             </div>
 
             {/* 🔥 NOVO: GANHO REAL */}
             <div style={card}>
               <h3>Ganho Real x Aporte</h3>
 
-              <LineChart width={450} height={260} data={evolucaoComGanho}>
+              <ComposedChart width={450} height={260} data={evolucaoComGanho}>
                 <XAxis dataKey="mes" />
                 <YAxis />
                 <Tooltip />
@@ -226,7 +226,7 @@ export default function Dashboard() {
                   stroke="#2563eb"
                   strokeWidth={2}
                 />
-              </LineChart>
+              </ComposedChart>
             </div>
 
             {/* CLASSE */}
