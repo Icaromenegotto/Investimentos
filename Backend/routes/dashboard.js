@@ -129,7 +129,8 @@ router.get("/ranking", async (req,res)=>{
         valor_total_brl,
         cambio_fechamento,
         mes,
-        ano
+        ano,
+        retirada_mes
       FROM snapshot_mensal
       ORDER BY ativo_id, ano DESC, mes DESC
     ),
@@ -158,6 +159,7 @@ router.get("/ranking", async (req,res)=>{
       DATE_PART('month', a.data_inicio) mesini,
       u.ano anoult,
       u.mes mesult,
+      u.retirada_mes,
 
       CASE WHEN $1='USD'
         THEN u.valor_total_usd
