@@ -270,15 +270,14 @@ export default function Dashboard() {
         </thead>
         <tbody>
           {ranking.map((r, i) => {
-            const ganho = r.valor_atual - r.total_investido;
-            const perc = r.total_investido            
-              ? (ganho / r.total_investido) * 100
+            const valor_investido = r.total_investido - r.retirada_mes;
+            const ganho = r.valor_atual - valor_investidoo;
+            const perc = valor_investido           
+              ? (ganho / valor_investido) * 100
               : 0;
             
              var mesInvestidos  = 0; 
              var anosInvestidos = 0;
-             console.log('r.anoIni');
-             console.log(r);
               if(r.anoini == r.anoult){ 
                 mesInvestidos = r.mesult - r.mesini }
               else{
@@ -286,9 +285,7 @@ export default function Dashboard() {
                   mesInvestidos = r.mesult+ (12-r.mesini) + anosInvestidos*12;
               }
 
-              console.log('mesULT');
-              console.log(mesInvestidos);
-                console.log('///////////////////////////////////////');
+
 
             return (
               <tr key={i}>
