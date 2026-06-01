@@ -271,7 +271,7 @@ export default function Dashboard() {
         <tbody>
           {ranking.map((r, i) => {
             const valor_investido = r.total_investido - r.retirada_mes;
-            const ganho = r.valor_atual - valor_investidoo;
+            const ganho = r.valor_atual - valor_investido;
             const perc = valor_investido           
               ? (ganho / valor_investido) * 100
               : 0;
