@@ -82,12 +82,22 @@ router.get("/resumo", async (req,res)=>{
       WHERE a.ativo = true
       AND ($2::text IS NULL OR a.classe = $2)
       GROUP BY s.ativo_id
-    )
+    ),
+    retirada AS (
+      SELECT
+        s.ativo_id,        
+        SUM(s.retirada_mes) AS retirada_mes
+      FROM snapshot_mensal s
+      JOIN ativos a ON a.id = s.ativo_id
+      WHERE a.ativo = true
+      AND ($2::text IS NULL OR a.classe = $2)
+      GROUP BY s.ativo_id
+    )    
     SELECT
       SUM(
         CASE WHEN $1='USD' THEN i.investido_usd
              ELSE i.investido_brl END
-      ) AS total_investido,
+      ) - sum(r.retirada_mes)  AS total_investido,
 
       SUM(
         CASE WHEN $1='USD' THEN u.valor_total_usd
@@ -96,6 +106,7 @@ router.get("/resumo", async (req,res)=>{
       ) AS valor_atual
     FROM ultimos u
     JOIN investido i ON i.ativo_id = u.ativo_id
+    JOIN retirada r ON r.ativo_id = u.ativo_id
   `,[moeda, classe || null]);
 
   const t = r.rows[0];
@@ -150,7 +161,17 @@ router.get("/ranking", async (req,res)=>{
       WHERE a.ativo = true
       AND ($2::text IS NULL OR a.classe = $2)
       GROUP BY s.ativo_id
-    )
+    ),
+    retiradas AS (
+      SELECT
+        s.ativo_id,
+        SUM(s.retirada_mes) AS retirada_mes
+      FROM snapshot_mensal s
+      JOIN ativos a ON a.id = s.ativo_id
+      WHERE a.ativo = true
+      AND ($2::text IS NULL OR a.classe = $2)
+      GROUP BY s.ativo_id
+    )    
     SELECT
       a.id,
       a.nome,
@@ -159,7 +180,7 @@ router.get("/ranking", async (req,res)=>{
       DATE_PART('month', a.data_inicio) mesini,
       u.ano anoult,
       u.mes mesult,
-      u.retirada_mes,
+      r.retirada_mes,
 
       CASE WHEN $1='USD'
         THEN u.valor_total_usd
@@ -174,6 +195,7 @@ router.get("/ranking", async (req,res)=>{
     FROM ativos a
     JOIN ultimos u ON u.ativo_id = a.id
     JOIN investido i ON i.ativo_id = a.id
+    JOIN retiradas r ON r.ativo_id = a.id
     WHERE a.ativo = true
     AND ($2::text IS NULL OR a.classe = $2)
     ORDER BY valor_atual DESC

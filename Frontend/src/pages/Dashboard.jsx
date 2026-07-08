@@ -290,7 +290,7 @@ export default function Dashboard() {
             return (
               <tr key={i}>
                 <td>{r.nome}</td>
-                <td style={right}>R$ {Number(r.total_investido).toFixed(2)}</td>
+                <td style={right}>R$ {Number(valor_investido).toFixed(2)}</td>
                 <td style={right}>R$ {Number(r.valor_atual).toFixed(2)}</td>
                 <td style={{ ...right, color: ganho >= 0 ? "green" : "red" }}>
                   R$ {ganho.toFixed(2)}
