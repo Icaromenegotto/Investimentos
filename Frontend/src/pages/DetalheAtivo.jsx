@@ -94,6 +94,7 @@ export default function DetalheAtivo() {
               <tr style={{ background: "#f3f4f6" }}>
                 <th style={thLeft}>Mês</th>
                 <th style={thRight}>Valor</th>
+                <th style={thRight}>Cambio</th>
                 <th style={thRight}>Aporte</th>
                 <th style={thRight}>Proventos</th>
                 <th style={thRight}>Venda</th>
@@ -106,6 +107,7 @@ export default function DetalheAtivo() {
                 <tr key={i} style={{ borderBottom: "1px solid #eee" }}>
                   <td style={tdLeft}>{h.mes}/{h.ano}</td>
                   <td style={tdRight}>{moeda==="BRL"?"R$":"USD"} {Number(h.valor_total).toFixed(2)}</td>
+                  <td style={tdRight}>{moeda==="BRL"?"R$":"USD"} {Number(h.cambio_fechamento).toFixed(2)}</td>
                   <td style={tdRight}>{moeda==="BRL"?"R$":"USD"} {Number(h.aporte_mes).toFixed(2)}</td>
                   <td style={tdRight}>{moeda==="BRL"?"R$":"USD"} {Number(h.proventos_mes).toFixed(2)}</td>
                   <td style={tdRight}>{moeda==="BRL"?"R$":"USD"} {Number(h.valor_vendido).toFixed(2)}</td>
