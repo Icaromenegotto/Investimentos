@@ -12,6 +12,7 @@ router.get("/", async (req, res) => {
       a.nome,
       a.classe,
       a.moeda,
+      ma.cambio_fechamento,
 
       CASE 
         WHEN $1 = 'USD' THEN ma.valor_total_usd
@@ -47,6 +48,16 @@ router.get("/", async (req, res) => {
         WHEN $1 = 'USD' THEN ma.ganho_12m_usd
         ELSE ma.ganho_12m_brl
       END AS ganho_12m
+
+      CASE 
+        WHEN $1 = 'USD' THEN ma.total_provento
+        ELSE ma.total_provento_brl
+      END AS total_prov,
+      
+      CASE 
+        WHEN $1 = 'USD' THEN ma.total_provento +ma.ganho_total_usd
+        ELSE ma.total_provento_brl +ma.ganho_total_brl
+      END AS total_prov_soma            
 
     FROM ativos a
     JOIN metricas_acumuladas ma 

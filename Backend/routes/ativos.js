@@ -74,6 +74,7 @@ router.get("/:id/detalhe", async (req,res)=>{
       SELECT
         ano,
         mes,
+        cambio_fechamento,
 
         CASE WHEN $2='USD' THEN valor_total_usd
             ELSE valor_total_brl END AS valor_total,
