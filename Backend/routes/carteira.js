@@ -6,8 +6,6 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   const { moeda = "BRL" } = req.query;
 
-  console.log("Aqui");
-
   const r = await pool.query(`
     SELECT
       a.id,
@@ -49,7 +47,7 @@ router.get("/", async (req, res) => {
       CASE 
         WHEN $1 = 'USD' THEN ma.ganho_12m_usd
         ELSE ma.ganho_12m_brl
-      END AS ganho_12m
+      END AS ganho_12m,
 
       CASE 
         WHEN $1 = 'USD' THEN ma.total_provento
@@ -82,7 +80,6 @@ router.get("/", async (req, res) => {
     ORDER BY a.CLASSE, ganho_total_brl desc, A.id
   `,[moeda]);
 
-  console.log("SQL:"+r);
   res.json(r.rows);
 });
 
