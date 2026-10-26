@@ -81,7 +81,8 @@ export default function Carteira() {
                 <th style={th}>Ganho Mês</th>
                 <th style={th}>%</th>
                 <th style={th}>Ganho Total</th>
-             
+                <th style={th}>Prov. Total</th>
+                <th style={th}>Prov. + Ganho</th>                
               </tr>
             </thead>
             <tbody>
@@ -135,7 +136,12 @@ export default function Carteira() {
                     {moeda === "BRL" ? "R$" : "USD"}{" "}
                     {Number(a.ganho_total || 0).toFixed(2)}
                   </td> 
-                           
+                  <td style={td}>
+                    {Number(a.total_prov || 1).toFixed(2)}
+                  </td>
+                  <td style={td}>
+                    {Number(a.total_prov_soma || 1).toFixed(2)}
+                  </td>                             
                 </tr>
               ))}
             </tbody>
