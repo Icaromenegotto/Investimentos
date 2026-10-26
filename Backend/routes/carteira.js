@@ -6,6 +6,8 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   const { moeda = "BRL" } = req.query;
 
+  console.log("Aqui");
+
   const r = await pool.query(`
     SELECT
       a.id,
@@ -80,6 +82,7 @@ router.get("/", async (req, res) => {
     ORDER BY a.CLASSE, ganho_total_brl desc, A.id
   `,[moeda]);
 
+  console.log("SQL:"+r);
   res.json(r.rows);
 });
 
